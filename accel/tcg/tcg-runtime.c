@@ -205,6 +205,22 @@ target_ulong HELPER(libafl_call)(CPUArchState *env, target_ulong code,
     }
 }
 
+target_ulong libafl_get_start_addr(void);
+target_ulong libafl_get_end_addr(void);
+target_ulong libafl_get_buffer_addr(void);
+
+target_ulong libafl_get_start_addr(void) {
+    return libafl_start_addr;
+}
+
+target_ulong libafl_get_end_addr(void) {
+    return libafl_end_addr;
+}
+
+target_ulong libafl_get_buffer_addr(void) {
+    return libafl_buffer_addr;
+}
+
 //// --- End LibAFL code ---
 
 /* 32-bit helpers */
