@@ -133,10 +133,6 @@ int libafl_qemu_break_asap = 0;
 CPUState* libafl_breakpoint_cpu;
 vaddr libafl_breakpoint_pc;
 
-vaddr libafl_start_addr;
-vaddr libafl_end_addr;
-vaddr libafl_buffer_addr;
-
 #ifdef TARGET_ARM
 #define THUMB_MASK(value) (value | libafl_breakpoint_cpu->env_ptr->thumb)
 #else
@@ -176,49 +172,6 @@ void HELPER(libafl_qemu_handle_breakpoint)(CPUArchState *env, target_ulong pc)
     CPUState* cpu = env_cpu(env);
     libafl_breakpoint_pc = pc;
     libafl_qemu_trigger_breakpoint(cpu);
-}
-
-target_ulong libafl_submit_addr(target_ulong addr, target_ulong addr_type) {
-    switch(addr_type) {
-        case 1:
-            libafl_start_addr = addr;
-            break;
-        case 2:
-            libafl_end_addr = addr;
-            break;
-        case 3:
-            libafl_buffer_addr = addr
-            break;
-        default:
-            return -1;
-    }
-    return 0;
-}
-
-target_ulong HELPER(libafl_call)(CPUArchState *env, target_ulong code,
-        target_ulong a0, target_ulong a1) {
-    switch(code) {
-        case 1:
-            return libafl_submit_addr(a0, a1);
-        default:
-            return -1;
-    }
-}
-
-target_ulong libafl_get_start_addr(void);
-target_ulong libafl_get_end_addr(void);
-target_ulong libafl_get_buffer_addr(void);
-
-target_ulong libafl_get_start_addr(void) {
-    return libafl_start_addr;
-}
-
-target_ulong libafl_get_end_addr(void) {
-    return libafl_end_addr;
-}
-
-target_ulong libafl_get_buffer_addr(void) {
-    return libafl_buffer_addr;
 }
 
 //// --- End LibAFL code ---

@@ -228,4 +228,4 @@ DEF_HELPER_3(rcrq, tl, env, tl, tl)
 
 DEF_HELPER_1(rdrand, tl, env)
 
-DEF_HELPER_4(libafl_call, tl, env, tl, tl, tl)
+DEF_HELPER_3(libafl_qemu_call, void, i64, i64, i64)

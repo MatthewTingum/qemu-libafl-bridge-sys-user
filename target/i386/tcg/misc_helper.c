@@ -137,3 +137,54 @@ void helper_wrpkru(CPUX86State *env, uint32_t ecx, uint64_t val)
     env->pkru = val;
     tlb_flush(cs);
 }
+
+vaddr libafl_start_addr;
+vaddr libafl_end_addr;
+vaddr libafl_buffer_addr;
+
+target_ulong libafl_submit_addr(target_ulong addr, target_ulong addr_type);
+target_ulong libafl_submit_addr(target_ulong addr, target_ulong addr_type) {
+    switch(addr_type) {
+        case 1:
+            libafl_start_addr = addr;
+            break;
+        case 2:
+            libafl_end_addr = addr;
+            break;
+        case 3:
+            libafl_buffer_addr = addr;
+            break;
+        default:
+            return -1;
+    }
+    return 0;
+}
+
+//target_ulong helper_libafl_qemu_call(CPUArchState *env, target_ulong code,
+//        target_ulong a0, target_ulong a1) {
+void helper_libafl_qemu_call(uint64_t code, uint64_t a0, uint64_t a1) {
+    switch(code) {
+        case 1:
+            //return libafl_submit_addr(a0, a1);
+            return;
+        default:
+            //return -1;
+            return;
+    }
+}
+
+target_ulong libafl_get_start_addr(void);
+target_ulong libafl_get_end_addr(void);
+target_ulong libafl_get_buffer_addr(void);
+
+target_ulong libafl_get_start_addr(void) {
+    return libafl_start_addr;
+}
+
+target_ulong libafl_get_end_addr(void) {
+    return libafl_end_addr;
+}
+
+target_ulong libafl_get_buffer_addr(void) {
+    return libafl_buffer_addr;
+}
