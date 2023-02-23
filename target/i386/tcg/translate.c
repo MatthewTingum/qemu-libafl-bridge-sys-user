@@ -5704,6 +5704,9 @@ static bool disas_insn(DisasContext *s, CPUState *cpu)
             s->base.is_jmp = DISAS_EOB_ONLY;
         }
         break;
+    case 0x124: /* pseudo-instr: 0x0f 0x24 - pseudo-hypercall */
+        gen_helper_libafl_call(cpu_regs[R_EAX], cpu_env, cpu_regs[R_EDI], cpu_regs[R_ESI], cpu_regs[R_EDX]);
+        break;
 #ifdef TARGET_X86_64
     case 0x105: /* syscall */
         /* XXX: is it usable in real mode ? */
