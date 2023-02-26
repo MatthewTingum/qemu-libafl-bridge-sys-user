@@ -165,10 +165,9 @@ target_ulong libafl_submit_addr(target_ulong addr, target_ulong addr_type) {
 void helper_libafl_qemu_call(uint64_t code, uint64_t a0, uint64_t a1) {
     switch(code) {
         case 1:
-            //return libafl_submit_addr(a0, a1);
+            libafl_submit_addr(a0, a1);
             return;
         default:
-            //return -1;
             return;
     }
 }
