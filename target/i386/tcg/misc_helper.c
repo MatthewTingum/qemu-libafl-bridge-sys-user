@@ -162,6 +162,8 @@ target_ulong libafl_submit_addr(target_ulong addr, target_ulong addr_type) {
 
 //target_ulong helper_libafl_qemu_call(CPUArchState *env, target_ulong code,
 //        target_ulong a0, target_ulong a1) {
+extern int libafl_qemu_set_breakpoint(uint64_t pc);
+
 void helper_libafl_qemu_call(uint64_t code, uint64_t a0, uint64_t a1) {
     fprintf(stderr, "helper_libafl_qemu_call: 0x%lx, 0x%lx, 0x%lx\n", code, a0, a1);
     switch(code) {
