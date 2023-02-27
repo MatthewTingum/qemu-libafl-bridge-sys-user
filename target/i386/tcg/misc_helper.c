@@ -168,6 +168,9 @@ void helper_libafl_qemu_call(uint64_t code, uint64_t a0, uint64_t a1) {
         case 1:
             libafl_submit_addr(a0, a1);
             return;
+        case 2:
+            libafl_qemu_set_breakpoint(a0);
+            return;
         default:
             return;
     }

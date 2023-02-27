@@ -87,7 +87,6 @@ int libafl_qemu_write_reg(CPUState* cpu, int reg, uint8_t* val);
 int libafl_qemu_read_reg(CPUState* cpu, int reg, uint8_t* val);
 int libafl_qemu_num_regs(CPUState* cpu);
 
-int libafl_qemu_set_breakpoint(target_ulong addr);
 int libafl_qemu_remove_breakpoint(target_ulong addr);
 size_t libafl_qemu_set_hook(target_ulong pc, void (*callback)(target_ulong, uint64_t),
                             uint64_t data, int invalidate);

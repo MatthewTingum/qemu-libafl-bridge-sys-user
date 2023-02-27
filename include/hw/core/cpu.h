@@ -1031,6 +1031,8 @@ void cpu_class_init_props(DeviceClass *dc);
 void cpu_exec_initfn(CPUState *cpu);
 void cpu_exec_realizefn(CPUState *cpu, Error **errp);
 void cpu_exec_unrealizefn(CPUState *cpu);
+#define target_ulong uint64_t
+int libafl_qemu_set_breakpoint(target_ulong addr);
 
 /**
  * target_words_bigendian:
